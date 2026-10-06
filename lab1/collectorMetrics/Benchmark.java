@@ -67,16 +67,24 @@ public class Benchmark {
 
         int [] history = ParetoGen.generate(1<< 20, 42L);
 
+        /*
         MetricsCollector singleThreadCollector = new SingleThreadCollector();
         double opsPerSecBaseline = measurePoint(singleThreadCollector, history, 1);
         System.out.printf("T=1 baseline: %,.0f ops/sec%n", opsPerSecBaseline);
-
+        */
         int cores = Runtime.getRuntime().availableProcessors();
 
-        for (int i = 1; i <= cores; i ++) {
+        for (int i = 0; i <= cores * 2; i ++) {
             MetricsCollector syncThreadCollector = new MultiThreadCollector();
             double opsPerSecSync = measurePoint(syncThreadCollector, history, i);
             System.out.printf("T=2 (%d threads) baseline: %,.0f ops/sec%n", i, opsPerSecSync);
         }
+        /*
+        for (int i = 0; i <= cores * 2; i ++) {
+            MetricsCollector lockStripedCollector = new LockStripedCollector();
+            double opsPerSecSync = measurePoint(lockStripedCollector, history, i);
+            System.out.printf("T=3 (%d threads) baseline: %,.0f ops/sec%n", i, opsPerSecSync);
+        }
+        */
     }
 }
