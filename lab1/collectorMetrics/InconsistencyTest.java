@@ -12,7 +12,7 @@ public class InconsistencyTest {
 
     @Test
     public void inconsistencyTest()throws Exception{
-        MetricsCollector collector = new LockStripedCollector();
+        MetricsCollector collector = new ThreadLocalMetricCollector();
 
         AtomicBoolean stop = new AtomicBoolean(false);
         ExecutorService pool = Executors.newFixedThreadPool(WRITERS);

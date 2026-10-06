@@ -73,12 +73,14 @@ public class Benchmark {
         System.out.printf("T=1 baseline: %,.0f ops/sec%n", opsPerSecBaseline);
         */
         int cores = Runtime.getRuntime().availableProcessors();
-
+        /*
         for (int i = 0; i <= cores * 2; i ++) {
             MetricsCollector syncThreadCollector = new MultiThreadCollector();
             double opsPerSecSync = measurePoint(syncThreadCollector, history, i);
             System.out.printf("T=2 (%d threads) baseline: %,.0f ops/sec%n", i, opsPerSecSync);
         }
+        */
+
         /*
         for (int i = 0; i <= cores * 2; i ++) {
             MetricsCollector lockStripedCollector = new LockStripedCollector();
@@ -86,5 +88,10 @@ public class Benchmark {
             System.out.printf("T=3 (%d threads) baseline: %,.0f ops/sec%n", i, opsPerSecSync);
         }
         */
+        for (int i = 0; i <= cores * 2; i ++) {
+            MetricsCollector threadLocalCollector = new ThreadLocalMetricCollector();
+            double opsPerSecSync = measurePoint(threadLocalCollector, history, i);
+            System.out.printf("T=2 (%d threads) baseline: %,.0f ops/sec%n", i, opsPerSecSync);
+        }
     }
 }
