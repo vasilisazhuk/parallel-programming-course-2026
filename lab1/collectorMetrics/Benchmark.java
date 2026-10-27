@@ -73,14 +73,21 @@ public class Benchmark {
         System.out.printf("T=1 baseline: %,.0f ops/sec%n", opsPerSecBaseline);
         */
         int cores = Runtime.getRuntime().availableProcessors();
-        /*
-        for (int i = 0; i <= cores * 2; i ++) {
-            MetricsCollector syncThreadCollector = new MultiThreadCollector();
-            double opsPerSecSync = measurePoint(syncThreadCollector, history, i);
-            System.out.printf("T=2 (%d threads) baseline: %,.0f ops/sec%n", i, opsPerSecSync);
-        }
-        */
 
+        /*for (int i = 0; i <= cores * 2; i ++) {
+            MetricsCollector syncThreadCollector = new MultiThreadCollector();
+            double opsPerSecSync = measurePoint(syncThreadCollector, history, 8);
+            System.out.printf("T=2 (%d threads) baseline: %,.0f ops/sec%n", 8, opsPerSecSync);
+        //}
+        */
+        /*
+        MetricsCollector doubleBufferedMetricCollector = new DoubleBufferedMetricCollector();
+        double opsPerSecSync = measurePoint(doubleBufferedMetricCollector, history, 16);
+        System.out.printf("T=4 (%d threads) baseline: %,.0f ops/sec%n", 16, opsPerSecSync);
+        */
+        MetricsCollector emptyCollector = new MultiThreadCollector();
+        double opsPerSecSync = measurePoint(emptyCollector, history, 16);
+        System.out.printf("T=4 (%d threads) baseline: %,.0f ops/sec%n", 16, opsPerSecSync);
         /*
         for (int i = 0; i <= cores * 2; i ++) {
             MetricsCollector lockStripedCollector = new LockStripedCollector();
@@ -88,10 +95,11 @@ public class Benchmark {
             System.out.printf("T=3 (%d threads) baseline: %,.0f ops/sec%n", i, opsPerSecSync);
         }
         */
-        for (int i = 0; i <= cores * 2; i ++) {
+        /*for (int i = 0; i <= cores * 2; i ++) {
             MetricsCollector threadLocalCollector = new ThreadLocalMetricCollector();
-            double opsPerSecSync = measurePoint(threadLocalCollector, history, i);
-            System.out.printf("T=2 (%d threads) baseline: %,.0f ops/sec%n", i, opsPerSecSync);
+            double opsPerSecSync = measurePoint(threadLocalCollector, history, 1);
+            System.out.printf("T=2 (%d threads) baseline: %,.0f ops/sec%n", 1, opsPerSecSync);
         }
+         */
     }
 }
